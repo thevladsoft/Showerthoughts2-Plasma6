@@ -12,8 +12,8 @@ Item {
     property alias cfg_back_img: backcheck.checked
     property alias cfg_transback: transbackcheck.checked
     property alias cfg_transshadow: transshadow.checked
-    property alias cfg_middledirect: middledirectcheck.checked
-    property alias cfg_middledialog: middledialogcheck.checked
+    // property alias cfg_middledirect: middledirectcheck.checked
+    // property alias cfg_middledialog: middledialogcheck.checked
     property alias cfg_middlemouse: middlemousecheck.checked
     property alias cfg_leftmouse: leftmousecheck.checked
     property alias cfg_nsfw: nsfwcheck.checked
@@ -114,23 +114,23 @@ Item {
             QtLayouts.Layout.fillWidth: true
             text: "Middle click opens post"
         }
-        QtLayouts.RowLayout{
-            Item{width: 20}
-            Column{
-                QtControls.CheckBox {
-                    id: middledirectcheck
-                    QtLayouts.Layout.fillWidth: true
-                    text: "Open the link pointed by the post directly, instead of the reddit one"
-                    enabled: middlemousecheck.checked
-                }
-                QtControls.CheckBox {
-                    id: middledialogcheck
-                    QtLayouts.Layout.fillWidth: true
-                    text: "Open link on a dialog window"
-                    enabled: middlemousecheck.checked
-                }
-            }
-        }
+        // QtLayouts.RowLayout{
+        //     Item{width: 20}
+        //     Column{
+        //         QtControls.CheckBox {
+        //             id: middledirectcheck
+        //             QtLayouts.Layout.fillWidth: true
+        //             text: "Open the link pointed by the post directly, instead of the reddit one"
+        //             enabled: middlemousecheck.checked
+        //         }
+        //         QtControls.CheckBox {
+        //             id: middledialogcheck
+        //             QtLayouts.Layout.fillWidth: true
+        //             text: "Open link on a dialog window"
+        //             enabled: middlemousecheck.checked
+        //         }
+        //     }
+        // }
         
         QtControls.CheckBox {
                     id: nsfwcheck

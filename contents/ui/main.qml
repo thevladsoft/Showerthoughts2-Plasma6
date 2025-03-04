@@ -18,11 +18,11 @@
  */
 
 import QtQuick 2.15;
-import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.plasmoid 2.0
+import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.components 3.0 as PlasmaComponents
 import org.kde.plasma.plasma5support 2.0 as P5Support
 import QtQuick.Controls 2.0 as QtControls
-import org.kde.plasma.plasmoid 2.0
 // import QtWebKit 3.0
 // import QtWebView 
 // import QtWebEngine 
@@ -50,6 +50,8 @@ PlasmoidItem {
     property real fraccion: 0
     
     compactRepresentation: CompactRepresentation {}
+
+
     
     
     Timer {
@@ -140,6 +142,9 @@ PlasmoidItem {
     }*/
     
     Component.onCompleted: {
+            // plasmoid.setInternalAction("New post", newpost);
+            // plasmoid.setInternalAction("Open reddit post on external application", openreddit);
+        
         if (plasmoid.configuration.transback == 0)
                   plasmoid.backgroundHints = PlasmaCore.Types.StandardBackground
         else {
@@ -422,24 +427,62 @@ PlasmoidItem {
                  }
                  MouseArea {
                     anchors.fill: col
-                    acceptedButtons: Qt.LeftButton | Qt.MiddleButton
-                    onClicked: {
+                    acceptedButtons: Qt.LeftButton | Qt.MiddleButton| Qt.RightButton
+                    onClicked:  (mouse)=> {
                         onTriggered: {
                             print(thumb.source)
                             if (mouse.button == Qt.LeftButton && plasmoid.configuration.leftmouse) {
                                 time.restart()
-                            } else if (mouse.button == Qt.MidButton && plasmoid.configuration.middlemouse){ 
-                                if (plasmoid.configuration.middledialog){
-                                    action_opendialog()
-                                }else{
+                            } else if (mouse.button == Qt.MiddleButton && plasmoid.configuration.middlemouse){ 
+                                // if (plasmoid.configuration.middledialog){
+                                //     action_opendialog()
+                                // }else{
                                     action_openexternall()
-                                }
+                                // }
                             }
+                            if (mouse.button === Qt.RightButton)   contextMenu.popup()
                         }
                     }
+                     QtControls.Menu {
+                        id: contextMenu
+                        QtControls.MenuItem { 
+                            text: "New post"
+                            onTriggered:time.restart()
+                        }
+                        QtControls.MenuItem { 
+                            text: "Open reddit post on external application"
+                            onTriggered:action_openexternall()
+                        }
+                        QtControls.MenuItem { 
+                            text: "Configure"
+                            onTriggered:Plasmoid.containment.configureRequested(Plasmoid)
+                        }
+                    }
+                    
                  }
             }
         }
+        
+//     Plasmoid.contextualActions: [
+//     PlasmaCore.Action {
+//         id: newpost
+//         text: "New post"
+//         // icon.name: Qt.application.layoutDirection === Qt.RightToLeft ? "media-skip-forward" : "media-skip-backward"
+//         // priority: Plasmoid.LowPriorityAction
+//         visible: true
+//         // enabled: true
+//         onTriggered: time.restart()
+//     },
+//         PlasmaCore.Action {
+//         id: openreddit
+//         text: "Open reddit post on external application"
+//         // icon.name: Qt.application.layoutDirection === Qt.RightToLeft ? "media-skip-forward" : "media-skip-backward"
+//         // priority: Plasmoid.LowPriorityAction
+//         visible: true
+//         // enabled: true
+//         onTriggered: action_openexternall()
+//     }
+// ]
     
 
     
@@ -545,16 +588,16 @@ PlasmoidItem {
             
             if (!plasmoid.configuration.tit_o_img && !plasmoid.configuration.tit_e_img) { busy.visible = false}
             if(thumb.visible)load_thumb()
-            if(!dialogo.visible){
-                web.url=""
-            }
-            else {
-                if(plasmoid.configuration.middledirect){
-                    web.url= root.realurl
-                }else{
-                    web.url= root.url
-                }
-            }
+            // if(!dialogo.visible){
+            //     web.url=""
+            // }
+            // else {
+            //     if(plasmoid.configuration.middledirect){
+            //         web.url= root.realurl
+            //     }else{
+            //         web.url= root.url
+            //     }
+            // }
           }
         }else{
             root.isp = "Connection failed\n      -Showerthoughts.plasmoid"
@@ -583,7 +626,7 @@ PlasmoidItem {
         id: clearcache
         engine: "executable"
         connectedSources: []
-        onNewData: {
+        onNewData: (sourceName, data) => {
             disconnectSource(sourceName);}
         function exec(sizemb) {
             connectSource("[ $(du -sm $(kf5-config --path cache)/kio_http |cut -f1) -gt "+sizemb+" ] && $(kf5-config --path lib)/libexec/kf5/kio_http_cache_cleaner --clear-all");
