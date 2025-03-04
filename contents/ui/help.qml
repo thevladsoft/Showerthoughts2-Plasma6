@@ -1,10 +1,10 @@
-import QtQuick 2.0
+import QtQuick 2.15
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 2.0 as PlasmaComponents
-import org.kde.kquickcontrolsaddons 2.0 as KQuickAddons
+import org.kde.plasma.components 3.0 as PlasmaComponents
+// import org.kde.kquickcontrolsaddons 2.0 as KQuickAddons
 import QtQuick.Layouts 1.1 as QtLayouts
-import QtQuick.Controls 1.0 as QtControls
+import QtQuick.Controls 2.0 as QtControls
 
 Item {
     id: help
@@ -15,7 +15,7 @@ Item {
         hideOnWindowDeactivate: true
         PlasmaComponents.TextField{
             readOnly:  true
-            style: Text.Outline
+            // style: Text.Outline
             width: 650
             text:"https://www.reddit.com/r/linux/comments/4jx4oh/get_a_random_rshowerthoughts_post_as_your_shell/"
         }

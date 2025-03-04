@@ -1,9 +1,9 @@
-import QtQuick 2.0
+import QtQuick 2.15
 import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 2.0 as PlasmaComponents
+import org.kde.plasma.components 3.0 as PlasmaComponents
 import QtQuick.Layouts 1.1 as QtLayouts
-import QtQuick.Controls 1.0 as QtControls
+import QtQuick.Controls 2.0 as QtControls
 
 Item {
     id: rootconf
@@ -44,21 +44,21 @@ Item {
                     QtLayouts.Layout.minimumHeight : units.smallSpacing * 2
                     text: "Show:"
                 }            
-                QtControls.ExclusiveGroup { id: mostrar }
+                // QtControls.ExclusiveGroup { id: mostrar }//arreglar
                 QtControls.RadioButton {
                     id: titulo_check
                     text: "the post title"
-                    exclusiveGroup: mostrar
+                    // exclusiveGroup: mostrar
                 }
                 QtControls.RadioButton {
                     id: imagen_check
                     text: "the post image"
-                    exclusiveGroup: mostrar
+                    // exclusiveGroup: mostrar
                 }
                 QtControls.RadioButton {
                     id: both_check
                     text: "both"
-                    exclusiveGroup: mostrar
+                    // exclusiveGroup: mostrar
                 }
             }
             QtLayouts.ColumnLayout{
@@ -70,21 +70,21 @@ Item {
                     text: "Images from:"
                 }
              
-                QtControls.ExclusiveGroup { id: resolution }
+                // QtControls.ExclusiveGroup { id: resolution }
                 QtControls.RadioButton {
                     id: lowres_check
                     text: "low resolution thumbnail"
-                    exclusiveGroup: resolution
+                    // exclusiveGroup: resolution
                 }
                 QtControls.RadioButton {
                     id: highres_check
                     text: "high resolution thumbnail"
-                    exclusiveGroup: resolution
+                    // exclusiveGroup: resolution
                 }
                 QtControls.RadioButton {
                     id: urlres_check
                     text: "use the linked url instead of a thumbnail"
-                    exclusiveGroup: resolution
+                    // exclusiveGroup: resolution
                 }
             }
         }

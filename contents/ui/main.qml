@@ -17,21 +17,24 @@
  *   Free Software Foundation, Inc.,
  */
 
-import QtQuick 2.0;
+import QtQuick 2.15;
 import org.kde.plasma.core 2.0 as PlasmaCore
-import org.kde.plasma.components 2.0 as PlasmaComponents
-import QtQuick.Controls 1.4 as QtControls
+import org.kde.plasma.components 3.0 as PlasmaComponents
+import org.kde.plasma.plasma5support 2.0 as P5Support
+import QtQuick.Controls 2.0 as QtControls
 import org.kde.plasma.plasmoid 2.0
-//import QtWebKit 3.0
-//import QtWebView 1.15
-import QtWebEngine 1.1
-import QtQuick.Dialogs 1.2
+// import QtWebKit 3.0
+// import QtWebView 
+// import QtWebEngine 
+import QtQuick.Dialogs 6.4
 import QtQuick.Layouts 1.1 as QtLayouts
-import QtQuick.Controls.Styles 1.4
+// import QtQuick.Controls.Styles 1.4
 //TODO Algunas imagenes fallan por no estar logeado. La solucion seria incluir usuario y contraseña en el encabesado
 //De momento no me interesa.
 
-Item {
+
+
+PlasmoidItem {
     id:root
 
     width: 250
@@ -46,7 +49,7 @@ Item {
     property string cursubreddit: ""
     property real fraccion: 0
     
-    Plasmoid.compactRepresentation: CompactRepresentation {}
+    compactRepresentation: CompactRepresentation {}
     
     
     Timer {
@@ -59,14 +62,14 @@ Item {
     }
     }
 
-    Dialog{
+   /* QtControls.Dialog{
         id: dialogo
         visible: false
         width: 800
         height: 600
-        modality:  Qt.NonModal
+        // modality:  Qt.NonModal//arreglar
         title: root.isp
-        standardButtons : StandardButton.Close|StandardButton.Reset
+        // standardButtons : StandardButton.Close|StandardButton.Reset//arreglar
         onReset: {
             if(plasmoid.configuration.middledirect){
                 web.url= root.realurl
@@ -77,37 +80,39 @@ Item {
         QtLayouts.ColumnLayout{
             QtControls.ProgressBar {
                     id: progres
-                    minimumValue: 0
-                    maximumValue: 100
+                    // minimumValue: 0//arreglar
+                    // maximumValue: 100
+                    from: 0//posiblearreglo
+                    to: 100 //posiblearreglo
                     height: 5
-                    width: web.width//webscrolly.width
+                    width: webscrolly.width
                     value: web.loadProgress
                     anchors.top: dialogo.top
-                    style: ProgressBarStyle {
-                                background: Rectangle {
-                                    radius: 100
-                                    color: "#ececec"
-                                    border.color: "lightgray"
-                                    border.width: 1
-                                    implicitWidth: 200
-                                    implicitHeight: 5
-                                }
-                                progress: Rectangle {
-                                    color: "#4da4ac"
-                                    border.color: "lightgray"
-                                    radius: 100
-                                }
-                           }
+                    // style: ProgressBarStyle {
+                    //             background: Rectangle {
+                    //                 radius: 100
+                    //                 color: "#ececec"
+                    //                 border.color: "lightgray"
+                    //                 border.width: 1
+                    //                 implicitWidth: 200
+                    //                 implicitHeight: 5
+                    //             }
+                    //             progress: Rectangle {
+                    //                 color: "#4da4ac"
+                    //                 border.color: "lightgray"
+                    //                 radius: 100
+                    //             }
+                    //        }
             }
-//             QtControls.ScrollView{
-//                 id: webscrolly
-//                 width: dialogo.width-20
-//                 height: dialogo.height-progres.height-55
-//                 anchors.top: progres.bottom
-//                 anchors.left: dialogo.left
-//                 contentItem :web
+            QtControls.ScrollView{
+                id: webscrolly
+                width: dialogo.width-20
+                height: dialogo.height-progres.height-55
+                anchors.top: progres.bottom
+                anchors.left: dialogo.left
+                contentItem :web
                 
-                WebEngineView {
+                WebView {
                     id: web
                     anchors.fill: dialogo.fill
                     width: dialogo.width-20
@@ -115,7 +120,7 @@ Item {
                     url: ""
                     visible:true
                 }
-            //}
+            }
             
         }
         
@@ -132,7 +137,7 @@ Item {
                 }
             }
         }
-    }
+    }*/
     
     Component.onCompleted: {
         if (plasmoid.configuration.transback == 0)
@@ -163,11 +168,11 @@ Item {
         }else{
             imagen.source = ""
         }
-        plasmoid.setAction('reload', i18n('New post'), 'system-reboot');
-        plasmoid.setAction('openexternallurl', i18n('Open reddit post on external application'), 'system-run');
-        plasmoid.setAction('openexternallrealurl', i18n('Open linked url on external application'), 'system-run');
-        plasmoid.setAction('opendialogurl', i18n('Open reddit post on a window'), 'system-run');
-        plasmoid.setAction('opendialogrealurl', i18n('Open linked url on a window'), 'system-run');
+        // P5Support.setAction('reload', i18n('New post'), 'system-reboot');
+        // P5Support.setAction('openexternallurl', i18n('Open reddit post on external application'), 'system-run');
+        // P5Support.setAction('openexternallrealurl', i18n('Open linked url on external application'), 'system-run');
+        // P5Support.setAction('opendialogurl', i18n('Open reddit post on a window'), 'system-run');
+        // P5Support.setAction('opendialogrealurl', i18n('Open linked url on a window'), 'system-run');
         
         delayer.delay(plasmoid.configuration.delay*1000, function() {
 //             time.running = true
@@ -338,8 +343,8 @@ Item {
             id: scrolly
             width: root.width
             height: root.height
-            horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
-            verticalScrollBarPolicy: plasmoid.configuration.barras?Qt.ScrollBarAlwaysOff:Qt.ScrollBarAlwaysOn
+            // horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
+            // verticalScrollBarPolicy: plasmoid.configuration.barras?Qt.ScrollBarAlwaysOff:Qt.ScrollBarAlwaysOn
             contentItem :tooltip
             QtControls.BusyIndicator{
                 id: busy
@@ -363,14 +368,14 @@ Item {
                  mainText: ""  
                  Column{
                     id: col
-                    // AnimatedImage{
-                    WebEngineView{
+                    AnimatedImage{
+                    // WebView{
                         id: thumb
                         // playing: false
                         // cache: false
                         // fillMode: Image.PreserveAspectFit
-                        property var source: ""
-                        url: source
+                        // property var source: ""
+                        // url: source
                         width: scrolly.width
                          height: scrolly.height*fraccion
                         opacity: 1.0
@@ -574,7 +579,7 @@ Item {
         }
     }
     
-    PlasmaCore.DataSource {
+    P5Support.DataSource {
         id: clearcache
         engine: "executable"
         connectedSources: []

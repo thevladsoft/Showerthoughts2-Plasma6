@@ -1,0 +1,31 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "",
+                "Name": ""
+            }
+        ],
+        "BugReportUrl": "",
+        "Category": "",
+        "Description": "",
+        "FormFactors": [
+            "tablet",
+            "handset",
+            "desktop"
+        ],
+        "Icon": "text-field",
+        "Id": "Showerthoughts3",
+        "License": "GPL-2.0+",
+        "Name": "Showerthoughts3",
+        "Website": "https://github.com/thevladsoft/Beclock-plasma6",
+        "Version":  "1.0"
+    },
+    "X-KDE-ParentApp": "org.kde.plasmashell",
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-Provides": [
+        "org.kde.plasma.time",
+        "org.kde.plasma.date"
+    ]
+}
