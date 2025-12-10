@@ -20,7 +20,7 @@
         "License": "GPL-2.0+",
         "Name": "Showerthoughts3",
         "Website": "https://github.com/thevladsoft/Beclock-plasma6",
-        "Version":  "1.0"
+        "Version":  "1.1"
     },
     "X-KDE-ParentApp": "org.kde.plasmashell",
     "X-Plasma-API-Minimum-Version": "6.0",
